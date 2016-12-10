@@ -1,0 +1,3 @@
+[submodule "src/lib/fatfree"]
+	path = src/lib/fatfree
+	url = https://github.com/bcosca/fatfree.git
