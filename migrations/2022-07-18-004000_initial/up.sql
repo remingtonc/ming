@@ -45,7 +45,7 @@ CREATE TABLE ming.record_activity (
     description text,
     happiness smallint,
     productivity smallint,
-    start_time timestamptz NOT NULL,
+    start_time timestamptz NOT NULL DEFAULT NOW()::timestamptz,
     end_time timestamptz,
     CONSTRAINT fk_record_activity_record_id
         FOREIGN KEY(record_activity_id)

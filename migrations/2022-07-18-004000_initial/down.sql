@@ -1,6 +1,3 @@
-DROP TABLE ming.record;
-DROP TABLE ming.user;
-DROP SCHEMA ming;
 DROP TABLE ming.record_has_tag;
 DROP TABLE ming.tag;
 DROP TABLE ming.record_link;
@@ -9,3 +6,4 @@ DROP TABLE ming.record_image;
 DROP TABLE ming.record_story;
 DROP TABLE ming.record;
 DROP TABLE ming.user;
+DROP SCHEMA ming;
