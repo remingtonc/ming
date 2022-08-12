@@ -8,7 +8,6 @@ pub struct User {
 pub struct Record {
     pub record_id: i64,
     pub user_id: i64,
-    pub name: String,
 }
 
 #[derive(Queryable)]
@@ -45,4 +44,25 @@ pub struct RecordLink {
 pub struct Tag {
     pub tag_id: i64,
     pub record_id: i64,
+}
+
+use super::schema::ming::{record, record_story, user};
+
+#[derive(Insertable)]
+#[table_name = "user"]
+pub struct NewUser<'r> {
+    pub name: &'r str,
+}
+
+#[derive(Insertable)]
+#[table_name = "record"]
+pub struct NewRecord<'r> {
+    pub user_id: &'r i64,
+}
+
+#[derive(Insertable)]
+#[table_name = "record_story"]
+pub struct NewRecordStory<'r> {
+    pub record_story_id: &'r i64,
+    pub content: &'r str,
 }
