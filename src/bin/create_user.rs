@@ -1,11 +1,10 @@
 extern crate diesel;
-extern crate ming;
-
-use self::ming::{create_user, establish_connection};
+use ming::{create_user, establish_connection, settings};
 use std::io::stdin;
 
 fn main() {
-    let connection = establish_connection();
+    let settings = settings::load_settings_file("config.json");
+    let connection = establish_connection(&settings.database_url);
 
     println!("What would you like your username to be?");
     let mut username = String::new();

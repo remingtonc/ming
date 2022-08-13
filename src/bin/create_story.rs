@@ -1,13 +1,11 @@
-extern crate diesel;
-extern crate ming;
-
-use self::diesel::prelude::*;
-use self::ming::{create_story, establish_connection};
+use diesel::prelude::*;
+use ming::{create_story, establish_connection, settings};
 use std::io::{stdin, Read};
 
 fn main() {
-    use self::ming::schema::ming::user::dsl::*;
-    let connection = establish_connection();
+    use ming::schema::ming::user::dsl::*;
+    let settings = settings::load_settings_file("config.json");
+    let connection = establish_connection(&settings.database_url);
 
     println!("What is your username?");
     let mut username = String::new();
