@@ -1,3 +1,7 @@
+-- Deploy ming:initial to pg
+
+BEGIN;
+
 CREATE SCHEMA ming;
 
 CREATE TABLE ming.user (
@@ -89,3 +93,5 @@ CREATE TABLE ming.record_has_tag (
         ON DELETE RESTRICT,
     PRIMARY KEY(tag_id, record_id)
 );
+
+COMMIT;

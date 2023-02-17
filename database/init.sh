@@ -1,0 +1,1 @@
+sqitch init ming --uri https://github.com/remingtonc/ming/ --engine pg
