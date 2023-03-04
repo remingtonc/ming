@@ -1,0 +1,6 @@
+%syntax-version=1.0.0
+%project=ming
+%uri=https://github.com/remingtonc/ming/
+
+initial 2023-02-17T01:23:53Z Remington Campbell <code@remington.io> # Add initial schema for ming.
+user-auth-sess 2023-03-02T00:05:08Z Remington Campbell <code@remington.io> # Add user session tracking.

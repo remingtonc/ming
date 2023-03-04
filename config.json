@@ -1,6 +1,0 @@
-{
-    "scheme": "http",
-    "domain": "127.0.0.1",
-    "port": 8080,
-    "database_url": "postgres://postgres:quick@localhost/ming?application_name=ming"
-}
