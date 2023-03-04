@@ -4,15 +4,21 @@ BEGIN;
 
 CREATE SCHEMA ming;
 
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
 CREATE TABLE ming.user (
     user_id bigserial NOT NULL,
-    name text NOT NULL,
+    email text NOT NULL,
+    password text NOT NULL,
+    create_time timestamptz NOT NULL DEFAULT NOW()::timestamptz,
     PRIMARY KEY(user_id)
 );
 
 CREATE TABLE ming.record (
     record_id bigserial NOT NULL,
     user_id bigint NOT NULL,
+    polymorphic_type text,
+    create_time timestamptz NOT NULL DEFAULT NOW()::timestamptz,
     CONSTRAINT fk_user_owns_record
         FOREIGN KEY(user_id)
         REFERENCES ming.user(user_id)
@@ -22,29 +28,29 @@ CREATE TABLE ming.record (
 );
 
 CREATE TABLE ming.record_story (
-    record_story_id bigint NOT NULL,
+    record_id bigint NOT NULL,
     content text NOT NULL,
     CONSTRAINT fk_record_story_record_id
-        FOREIGN KEY(record_story_id)
+        FOREIGN KEY(record_id)
         REFERENCES ming.record(record_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT,
-    PRIMARY KEY(record_story_id)
+    PRIMARY KEY(record_id)
 );
 
 CREATE TABLE ming.record_image (
-    record_image_id bigint NOT NULL,
+    record_id bigint NOT NULL,
     path text NOT NULL,
     CONSTRAINT fk_record_image_record_id
-        FOREIGN KEY(record_image_id)
+        FOREIGN KEY(record_id)
         REFERENCES ming.record(record_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT,
-    PRIMARY KEY(record_image_id)
+    PRIMARY KEY(record_id)
 );
 
 CREATE TABLE ming.record_activity (
-    record_activity_id bigint NOT NULL,
+    record_id bigint NOT NULL,
     name text NOT NULL,
     description text,
     happiness smallint,
@@ -52,23 +58,23 @@ CREATE TABLE ming.record_activity (
     start_time timestamptz NOT NULL DEFAULT NOW()::timestamptz,
     end_time timestamptz,
     CONSTRAINT fk_record_activity_record_id
-        FOREIGN KEY(record_activity_id)
+        FOREIGN KEY(record_id)
         REFERENCES ming.record(record_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT,
-    PRIMARY KEY(record_activity_id)
+    PRIMARY KEY(record_id)
 );
 
 CREATE TABLE ming.record_link (
-    record_link_id bigint NOT NULL,
+    record_id bigint NOT NULL,
     name text,
     url text NOT NULL,
     CONSTRAINT fk_record_link_record_id
-        FOREIGN KEY(record_link_id)
+        FOREIGN KEY(record_id)
         REFERENCES ming.record(record_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT,
-    PRIMARY KEY(record_link_id)
+    PRIMARY KEY(record_id)
 );
 
 CREATE TABLE ming.tag (

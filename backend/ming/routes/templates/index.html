@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}MING{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold underline">ALPHA</h1>
+    {%- if request.user.is_authenticated %}
+<h3>You are authenticated as {{ request.user.username }}!</h3>
+    {%- endif %}
+{% endblock %}

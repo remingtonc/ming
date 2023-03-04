@@ -1,0 +1,6 @@
+sqlalchemy[asyncio]
+asyncpg
+starlette
+uvicorn
+jinja2
+python-multipart
