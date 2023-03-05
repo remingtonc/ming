@@ -10,6 +10,7 @@ from ..database import engine
 from ..database import models
 from . import auth
 from typing import Optional
+import logging
 
 templates: Jinja2Templates = Jinja2Templates(directory="ming/routes/templates")
 
@@ -34,6 +35,7 @@ async def signup(request: Request) -> Response:
                     await session.commit()
             signup_success = True
         except:
+            logging.exception('big fail')
             signup_success = False
         return templates.TemplateResponse(
             "signup.html",
@@ -51,23 +53,27 @@ async def login(request: Request) -> Response:
     if request.method == "GET":
         return templates.TemplateResponse("login.html", {"request": request})
     if request.method == "POST":
-        response = RedirectResponse("/")
         if (
             request.cookies.get("ming_user_id", None) is not None
             or request.cookies.get("ming_session_id", None) is not None
         ):
-            return response
+            return RedirectResponse("/logout")
+        login_attempted = True
+        login_success = False
         login_form = await request.form()
         email = login_form.get("email")
         password = login_form.get("password")
-        if not isinstance(email, str) or not isinstance(password, str):
-            return response
-        user: Optional[models.User] = await auth.get_user_from_login(email, password)
-        if user is not None:
-            await auth_set_cookies(response, user)
-            return response
+        if not isinstance(email, str) and not isinstance(password, str):
+            return templates.TemplateResponse("login.html", {"request": request, "login_success": login_success, "login_attempted": login_attempted})
         else:
-            return templates.TemplateResponse("login.html", {"request": request})
+            user: Optional[models.User] = await auth.get_user_from_login(email, password)
+            if user is not None:
+                login_success = True
+                response = templates.TemplateResponse("login.html", {"request": request, "login_success": login_success, "login_attempted": login_attempted})
+                await auth_set_cookies(response, user)
+                return response
+            else:
+                return templates.TemplateResponse("login.html", {"request": request, "login_success": login_success, "login_attempted": login_attempted})
 
 
 async def logout(request: Request) -> Response:

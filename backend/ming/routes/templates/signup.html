@@ -1,23 +1,22 @@
-<html>
-    <head>
-        <title>MING</title>
-    </head>
-    <body>
-        <h1>Login</h1>
-{% if signup_attempted|default(false) %}
-{%   if signup_success|default(false) %}
-        <h2>Signup successful!</h2>
-        <p>Proceed to <a href="/login">login</a>.</p>
-{%   else %}
-        <h2>Signup failed!</h2>
+{% extends 'index.html' %}
+
+{% block title %}Signup{% endblock %}
+{% block name %}Signup{% endblock %}
+
+{% block content %}
+{%   if signup_attempted|default(false) %}
+{%     if signup_success|default(false) %}
+<h2>Signup successful!</h2>
+<p>Proceed to <a href="/login">login</a>.</p>
+{%     else %}
+<h2>Signup failed!</h2>
+{%     endif %}
 {%   endif %}
-{% endif %}
-        <form method="POST">
-            <label for="login_email">Email</label>
-            <input id="login_email" type="email" name="email"/>
-            <label for="login_password">Password</label>
-            <input id="login_password" type="password" name="password"/>
-            <input type="submit">
-        </form>
-    </body>
-</html>
+<form method="POST">
+    <label for="signup_email">Email</label>
+    <input id="signup_email" type="email" name="email"/>
+    <label for="signup_password">Password</label>
+    <input id="signup_password" type="password" name="password"/>
+    <input type="submit">
+</form>
+{% endblock %}

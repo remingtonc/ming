@@ -1,15 +1,22 @@
-<html>
-    <head>
-        <title>MING</title>
-    </head>
-    <body>
-        <h1>Login</h1>
-        <form method="POST">
-            <label for="login_email">Email</label>
-            <input id="login_email" type="email" name="email"/>
-            <label for="login_password">Password</label>
-            <input id="login_password" type="password" name="password"/>
-            <input type="submit">
-        </form>
-    </body>
-</html>
+{% extends 'index.html' %}
+
+{% block title %}Login{% endblock %}
+{% block name %}Login{% endblock %}
+
+{% block content %}
+{%   if login_attempted|default(false) %}
+{%     if login_success|default(false) %}
+<h2>Login successful!</h2>
+<p>Proceed to <a href="/">wherever you'd like</a>.</p>
+{%     else %}
+<h2>Login failed!</h2>
+{%     endif %}
+{%   endif %}
+<form method="POST">
+    <label for="login_email">Email</label>
+    <input id="login_email" type="email" name="email"/>
+    <label for="login_password">Password</label>
+    <input id="login_password" type="password" name="password"/>
+    <input type="submit">
+</form>
+{% endblock %}
