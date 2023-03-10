@@ -91,8 +91,8 @@
     for (const [key, value] of Object.entries(tiptap_plugin_buttons)) {
         let button_element = document.createElement('button')
         button_element.classList.add(
-                'bg-blue-500',
-                'hover:bg-blue-700',
+                'bg-sky-500',
+                'hover:bg-sky-700',
                 'text-white',
                 'font-bold',
                 'text-xs',

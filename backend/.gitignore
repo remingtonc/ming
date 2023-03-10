@@ -1,3 +1,7 @@
+## Custom
+ming/routes/static/css/tailwind.css
+ming/routes/static/js/tiptap-rollup*.js
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
